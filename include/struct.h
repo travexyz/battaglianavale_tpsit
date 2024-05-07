@@ -2,17 +2,11 @@ struct Punto
 {
     short unsigned int x;
     short unsigned int y;
-};
-
-struct Nave
-{
-    short unsigned int height;
-    short unsigned int width;
-    Punto posizione;
+    short unsigned int tipo; // 0: acqua, 1: nave.
 };
 
 struct Campo
 {
     short unsigned int dimensione;
-    Nave *navi;
+    Punto** campo;
 };
