@@ -5,10 +5,14 @@ struct Campo
     unsigned short int numeroNavi;
 };
 
-/// @brief 
-/// @param campo 
-void inizializzaCampo(Campo campo);
+/// @brief
+/// @param campo
+void inizializzaCampo(Campo &campo);
 
-/// @brief 
-/// @param campo 
+/// @brief
+/// @param campo
+void inserisciNavi(Campo &campo);
+
+/// @brief
+/// @param campo
 void stampaCampo(Campo campo);
