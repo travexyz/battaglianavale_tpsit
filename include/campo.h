@@ -7,12 +7,17 @@ struct Campo
 
 /// @brief
 /// @param campo
-void inizializzaCampo(Campo &campo);
+void inizializzaCampo(Campo *&campo);
 
 /// @brief
 /// @param campo
-void inserisciNavi(Campo &campo);
+void inserisciNavi(Campo *&campo);
 
 /// @brief
 /// @param campo
-void stampaCampo(Campo campo);
+void stampaCampo(Campo *campo);
+
+/// @brief 
+/// @param campoNavi 
+/// @param campoTattico 
+void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
