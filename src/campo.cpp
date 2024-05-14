@@ -155,7 +155,9 @@ bool hasSank(Campo *campo, char nave)
     {
         for (size_t j = 0; j < campo->dimensione; j++)
         {
+            std::cout << campo->campo[i][j];
             if (campo->campo[i][j] == nave)
+            
                 return false;
         }
     }
@@ -165,17 +167,14 @@ bool hasSank(Campo *campo, char nave)
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
 {
     unsigned short int xColpo, yColpo;
-    while (true)
+    while (campoNavi->numeroNavi > 0)
     {
-        // Se non ci sono più navi, il giocatore vince
-        if (campoNavi->numeroNavi == 0)
-            break;
 
         clearScreen();
         stampaCampo(campoNavi);
         stampaCampo(campoTattico);
         scriviConEffetto("Inserisci le coordinate del tuo colpo: (x poi y)", 10);
-        std::cin >> xColpo >> yColpo;
+        std::cin >> yColpo >> xColpo;
 
         char puntoCampoNavi = campoNavi->campo[xColpo][yColpo];
         char puntoCampoTattico = campoTattico->campo[xColpo][yColpo];
@@ -201,7 +200,7 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
             if (hasSank(campoNavi, puntoCampoNavi))
             {
                 scriviConEffetto("Hai affondato la nave " + puntoCampoNavi, 30);
-                campoTattico->campo[xColpo][yColpo] = 'A';
+                puntoCampoTattico = puntoCampoNavi;
                 campoNavi->numeroNavi--;
                 continue;
             }
@@ -216,7 +215,7 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         if (puntoCampoNavi == '~')
         {
             scriviConEffetto("Hai colpito solo dell'acqua.", 30);
-            campoTattico->campo[xColpo][yColpo] = 'O';
+            puntoCampoTattico = 'O';
             continue;
         }
     }
