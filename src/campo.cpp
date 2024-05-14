@@ -157,7 +157,7 @@ bool hasSank(Campo *campo, char nave)
         {
             std::cout << campo->campo[i][j];
             if (campo->campo[i][j] == nave)
-            
+
                 return false;
         }
     }
@@ -217,6 +217,41 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
             scriviConEffetto("Hai colpito solo dell'acqua.", 30);
             puntoCampoTattico = 'O';
             continue;
+        }
+    }
+}
+
+void finegioco(Campo *&campoNavi, Campo *&campoTattico)
+{
+    int scelta = 0;
+    if (campoNavi->numeroNavi == 0)
+    {
+        std::cout << "Hai completato il gioco e hai vinto! Complimenti!";
+    }
+    else
+    {
+        std::cout << "Sei stato battuto! Mi dispiace! Ritenta sarai più fortunato!" << std::endl;
+        std::cout << "Per riniziare il gioco premi 1 per finire primi 0";
+        std::cin >> scelta;
+        if (scelta == 1)
+        {
+            inizializzaCampo(campoNavi);
+            inserisciNavi(campoNavi);
+            // stampaCampo(campoNavi);
+
+            // Genero il campo dove vengono segnati i colpi
+            Campo *campoTattico = new Campo;
+            campoTattico->dimensione = campoNavi->dimensione;
+            campoTattico->campo = new char *[campoTattico->dimensione];
+            inizializzaCampo(campoTattico);
+
+            // Inizio il gioco
+            gestisciColpi(campoNavi, campoTattico);
+            return;
+        }
+        else
+        {
+            EXIT_SUCCESS;
         }
     }
 }

@@ -17,7 +17,12 @@ void inserisciNavi(Campo *&campo);
 /// @param campo
 void stampaCampo(Campo *campo);
 
+/// @brief
+/// @param campoNavi
+/// @param campoTattico
+void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
+
 /// @brief 
 /// @param campoNavi 
 /// @param campoTattico 
-void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
+void finegioco(Campo *&campoNavi, Campo *&campoTattico);
