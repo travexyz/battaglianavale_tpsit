@@ -151,13 +151,13 @@ void stampaCampo(Campo *campo)
 // Per la funzione gestisciColpi
 bool hasSank(Campo *campo, char nave)
 {
+    std::cout << "chiamata hasSank, nave: " << nave << std::endl;
     for (size_t i = 0; i < campo->dimensione; i++)
     {
         for (size_t j = 0; j < campo->dimensione; j++)
         {
-            std::cout << campo->campo[i][j];
+            // std::cout << campo->campo[i][j] == nave << std::endl;
             if (campo->campo[i][j] == nave)
-            
                 return false;
         }
     }
@@ -167,46 +167,52 @@ bool hasSank(Campo *campo, char nave)
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
 {
     unsigned short int xColpo, yColpo;
-    while (campoNavi->numeroNavi > 0)
+    while (campoNavi->numeroNavi > 0 && campoNavi->colpiDisponibili > 0)
     {
-
         clearScreen();
         stampaCampo(campoNavi);
         stampaCampo(campoTattico);
+        scriviConEffetto("Tentativ numero " + campoNavi->colpiDisponibili, 10);
         scriviConEffetto("Inserisci le coordinate del tuo colpo: (x poi y)", 10);
         std::cin >> yColpo >> xColpo;
 
         char puntoCampoNavi = campoNavi->campo[xColpo][yColpo];
         char puntoCampoTattico = campoTattico->campo[xColpo][yColpo];
 
+        campoNavi->colpiDisponibili--;
+
         // Se il colpo esce dal campo
         if (xColpo > campoTattico->dimensione - 1 || xColpo < 0 || yColpo > campoTattico->dimensione - 1 || yColpo < 0)
         {
-            scriviConEffetto("Inserisci delle coordinate valide!", 30);
+            scriviConEffetto("Inserisci delle coordinate valide!", 20);
+            sleep(2);
             continue;
         }
 
         // Se ho gia colpito quella posizione
         if (puntoCampoTattico == 'A' || puntoCampoTattico == 'X' || puntoCampoTattico == 'O')
         {
-            scriviConEffetto("Hai già colpito questa posizione!", 30);
+            scriviConEffetto("Hai già colpito questa posizione!", 20);
+            sleep(2);
             continue;
         }
 
         // Se colpisco una nave
         if (isdigit(puntoCampoNavi))
         {
-            // Se ho affondato la anve
+            // Se ho affondato la nave
             if (hasSank(campoNavi, puntoCampoNavi))
             {
-                scriviConEffetto("Hai affondato la nave " + puntoCampoNavi, 30);
+                scriviConEffetto("Hai affondato la nave " + puntoCampoNavi, 20);
+                sleep(2);
                 puntoCampoTattico = puntoCampoNavi;
                 campoNavi->numeroNavi--;
                 continue;
             }
             else
             {
-                scriviConEffetto("Hai colpito la nave " + puntoCampoNavi, 30);
+                scriviConEffetto("Hai colpito la nave " + puntoCampoNavi, 20);
+                sleep(2);
                 puntoCampoTattico = puntoCampoNavi;
                 puntoCampoNavi = 'C';
                 continue;
@@ -214,7 +220,8 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         }
         if (puntoCampoNavi == '~')
         {
-            scriviConEffetto("Hai colpito solo dell'acqua.", 30);
+            scriviConEffetto("Hai colpito solo dell'acqua.", 20);
+            sleep(2);
             puntoCampoTattico = 'O';
             continue;
         }

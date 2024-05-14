@@ -3,6 +3,7 @@ struct Campo
     char **campo;
     unsigned short int dimensione;
     unsigned short int numeroNavi;
+    unsigned short int colpiDisponibili;
 };
 
 /// @brief

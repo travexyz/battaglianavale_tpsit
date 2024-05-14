@@ -26,3 +26,8 @@ void clearScreen()
     system("clear");
 #endif
 }
+
+void sleep(unsigned int secondi)
+{
+    std::this_thread::sleep_for(std::chrono::seconds(secondi));
+}
