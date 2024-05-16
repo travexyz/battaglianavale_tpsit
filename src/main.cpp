@@ -18,7 +18,7 @@ int main()
     // scriviConEffetto(banner4, 10);
     // scriviConEffetto(banner5, 5);
 
-    scriviConEffetto("Benvenuto, dovrai affondare tutte le navi che veranno generate in modo casuale.", 50);
+    std::cout << "Benvenuto, dovrai affondare tutte le navi che veranno generate in modo casuale." << std::endl;
 
     // Genero il campo con le navi
     Campo *campoNavi = new Campo;
@@ -26,13 +26,13 @@ int main()
     campoNavi->dimensione = 10;
     campoNavi->campo = new char *[campoNavi->dimensione];
 
-    unsigned short int numeroNavi = 3;
-    scriviConEffetto("Ora scegli quante navi renderai disponibili per la battaglia (default 3): ", 50);
+    unsigned short int numeroNavi = 0;
+    scriviConEffetto("Ora scegli quante navi renderai disponibili per la battaglia: ", 50);
     std::cin >> numeroNavi;
     campoNavi->numeroNavi = numeroNavi;
 
-    unsigned short int colpi = 10;
-    scriviConEffetto("Infine inserisci quanti tentativi desideri (default 10): ", 50);
+    unsigned short int colpi = 0;
+    scriviConEffetto("Infine inserisci quanti colpi desideri: ", 50);
     std::cin >> colpi;
     campoNavi->colpiDisponibili = colpi;
 
@@ -48,6 +48,6 @@ int main()
 
     // Inizio il gioco
     gestisciColpi(campoNavi, campoTattico);
-    finegioco(campoNavi, campoTattico);
+    fineGioco(campoNavi, campoTattico);
     return EXIT_SUCCESS;
 }
