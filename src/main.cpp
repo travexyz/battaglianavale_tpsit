@@ -52,7 +52,7 @@ int main()
 
         // Inizio il gioco
         gestisciColpi(campoNavi, campoTattico);
-        if (fineGioco(ricominciare))
+        if (!fineGioco(ricominciare))
         {
             return EXIT_SUCCESS;
         };

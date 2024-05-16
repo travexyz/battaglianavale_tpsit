@@ -243,15 +243,16 @@ bool fineGioco(bool ricominciare)
     char risposta;
     std::cin >> risposta;
 
-    if (risposta != 's' || risposta != 'S')
+    if ((risposta == 's' || risposta == 'S'))
     {
-        ricominciare = false;
-        std::cout << "Fine del gioco. Arrivederci!" << std::endl;
+        clearScreen();
+        ricominciare = true;
         return ricominciare;
     }
     else
     {
-        ricominciare = true;
+        ricominciare = false;
+        std::cout << "Fine del gioco. Arrivederci!" << std::endl;
         return ricominciare;
     }
 }
