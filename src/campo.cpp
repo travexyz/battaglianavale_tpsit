@@ -169,7 +169,6 @@ bool esiste(Campo *campo, char nave)
     return false; // La nave è completamente affondata
 }
 
-
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
 {
     unsigned short int xColpo = 0, yColpo = 0;
@@ -198,7 +197,7 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         {
             scriviConEffetto("Hai già colpito questa posizione!", 20);
             sleep(2);
-            continue; 
+            continue;
         }
 
         // Se colpisco una nave
@@ -237,30 +236,22 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
     }
 }
 
-void fineGioco(Campo *&campoNavi, Campo *&campoTattico)
+bool fineGioco(bool ricominciare)
 {
-    int scelta = 0;
-    if (campoNavi->numeroNavi == 0 && campoNavi->colpiDisponibili >= 0)
-        std::cout << "Hai completato il gioco e hai vinto! Complimenti!";
+
+    std::cout << "Il gioco è finito. Vuoi ricominciare? (s/n): ";
+    char risposta;
+    std::cin >> risposta;
+
+    if (risposta != 's' || risposta != 'S')
+    {
+        ricominciare = false;
+        std::cout << "Fine del gioco. Arrivederci!" << std::endl;
+        return ricominciare;
+    }
     else
     {
-        std::cout << "Sei stato battuto! Mi dispiace! Ritenta sarai più fortunato!" << std::endl;
-        std::cout << "Vuoi rigiocare? (1 si, 0 no)" << std::endl;
-        std::cin >> scelta;
-        if (scelta == 1)
-        {
-            inizializzaCampo(campoNavi);
-            inserisciNavi(campoNavi);
-
-            // Genero il campo dove vengono segnati i colpi
-            Campo *campoTattico = new Campo;
-            campoTattico->dimensione = campoNavi->dimensione;
-            campoTattico->campo = new char *[campoTattico->dimensione];
-            inizializzaCampo(campoTattico);
-
-            // Inizio il gioco
-            gestisciColpi(campoNavi, campoTattico);
-        }
-        return;
+        ricominciare = true;
+        return ricominciare;
     }
 }
