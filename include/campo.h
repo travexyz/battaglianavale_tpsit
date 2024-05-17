@@ -23,7 +23,7 @@ void stampaCampo(Campo *campo);
 /// @param campoTattico
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
 
-/// @brief 
-/// @param campoNavi 
-/// @param campoTattico 
-void fineGioco(Campo *&campoNavi, Campo *&campoTattico);
+/// @brief
+/// @param ricominciare
+/// @return
+bool fineGioco(bool ricominciare);
