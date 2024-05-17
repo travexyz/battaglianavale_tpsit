@@ -150,7 +150,7 @@ void stampaCampo(Campo *campo)
     }
 }
 
-// Per la funzione gestisciColpi
+// Funzione per verificare se la nave è stata affondata
 bool esiste(Campo *campo, char nave)
 {
     for (size_t i = 0; i < campo->dimensione; i++)
@@ -158,7 +158,7 @@ bool esiste(Campo *campo, char nave)
         for (size_t j = 0; j < campo->dimensione; j++)
         {
             std::cerr << campo->campo[i][j] << " " << nave << std::endl;
-            if (campo->campo[i][j] == nave && campo->campo[i][j] != 'C')
+            if (campo->campo[i][j] == nave || campo->campo[i][j] != 'C') // Cambiato da && a ||
             {
                 std::cout << "Nave " << nave << " non affondata." << std::endl;
                 return true; // La nave non è ancora completamente affondata
@@ -172,7 +172,7 @@ bool esiste(Campo *campo, char nave)
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
 {
     unsigned short int xColpo = 0, yColpo = 0;
-    while (campoNavi->numeroNavi > 0 && campoNavi->colpiDisponibili > 0)
+    do
     {
         clearScreen();
         stampaCampo(campoNavi);
@@ -201,13 +201,14 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         }
 
         // Se colpisco una nave
-        if (isdigit(campoNavi->campo[xColpo][yColpo]))
+        if (std::isdigit(campoNavi->campo[xColpo][yColpo]))
         {
             campoNavi->colpiDisponibili--;
 
             // Se ho affondato la nave
             if (!esiste(campoNavi, campoNavi->campo[xColpo][yColpo]))
             {
+                clearScreen();
                 scriviConEffetto("Hai affondato una nave!", 20);
                 campoNavi->campo[xColpo][yColpo] = 'X';
                 campoTattico->campo[xColpo][yColpo] = 'X';
@@ -217,6 +218,7 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
             }
             else
             {
+                clearScreen();
                 scriviConEffetto("Hai colpito una nave!", 20);
                 campoNavi->campo[xColpo][yColpo] = 'C';
                 campoTattico->campo[xColpo][yColpo] = 'C';
@@ -226,14 +228,14 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         }
         if (campoNavi->campo[xColpo][yColpo] == '~')
         {
+            clearScreen();
             campoNavi->colpiDisponibili--;
-
             scriviConEffetto("Hai colpito solo dell'acqua!", 20);
             campoTattico->campo[xColpo][yColpo] = 'A';
             sleep(2);
             continue;
         }
-    }
+    } while (campoNavi->numeroNavi > 0 && campoNavi->colpiDisponibili > 0);
 }
 
 bool fineGioco(bool ricominciare)
@@ -255,4 +257,26 @@ bool fineGioco(bool ricominciare)
         std::cout << "Fine del gioco. Arrivederci!" << std::endl;
         return ricominciare;
     }
+}
+
+bool finedituttelenavi(Campo *campo)
+{
+    for (size_t i = 0; i < campo->dimensione; i++)
+    {
+        for (size_t j = 0; j < campo->dimensione; j++)
+        {
+            if (std::isdigit(campo->campo[i][j]))
+            {
+                std::cout << "Hai perso!" << std::endl;
+                return false;
+                EXIT_SUCCESS;
+            }
+        }
+    }
+    if (campo->numeroNavi == 0)
+    {
+        std::cout << "Hai vinto!" << std::endl;
+    }
+    return true;
+    EXIT_SUCCESS;
 }
