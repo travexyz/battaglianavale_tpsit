@@ -158,7 +158,7 @@ bool esiste(Campo *campo, char nave)
         for (size_t j = 0; j < campo->dimensione; j++)
         {
             std::cerr << campo->campo[i][j] << " " << nave << std::endl;
-            if (campo->campo[i][j] == nave || campo->campo[i][j] != 'C') // Cambiato da && a ||
+            if (campo->campo[i][j] == nave && campo->campo[i][j] != 'C')
             {
                 std::cout << "Nave " << nave << " non affondata." << std::endl;
                 return true; // La nave non è ancora completamente affondata
