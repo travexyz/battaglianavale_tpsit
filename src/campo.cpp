@@ -157,8 +157,8 @@ bool esiste(Campo *campo, char nave)
     {
         for (size_t j = 0; j < campo->dimensione; j++)
         {
-            std::cerr << campo->campo[i][j] << " " << nave << std::endl;
-            if (campo->campo[i][j] == nave && campo->campo[i][j] != 'C')
+            // std::cerr << i << j << campo->campo[i][j] << " " << nave << std::endl;
+            if (campo->campo[i][j] == nave)
             {
                 std::cout << "Nave " << nave << " non affondata." << std::endl;
                 return true; // La nave non è ancora completamente affondata
@@ -204,11 +204,13 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         if (std::isdigit(campoNavi->campo[xColpo][yColpo]))
         {
             campoNavi->colpiDisponibili--;
+            char naveDaCercare = campoNavi->campo[xColpo][yColpo];
+            campoNavi->campo[xColpo][yColpo] = 'C';
 
             // Se ho affondato la nave
-            if (!esiste(campoNavi, campoNavi->campo[xColpo][yColpo]))
+            if (!esiste(campoNavi, naveDaCercare))
             {
-                clearScreen();
+                // clearScreen();
                 scriviConEffetto("Hai affondato una nave!", 20);
                 campoNavi->campo[xColpo][yColpo] = 'X';
                 campoTattico->campo[xColpo][yColpo] = 'X';
@@ -218,9 +220,8 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
             }
             else
             {
-                clearScreen();
+                // clearScreen();
                 scriviConEffetto("Hai colpito una nave!", 20);
-                campoNavi->campo[xColpo][yColpo] = 'C';
                 campoTattico->campo[xColpo][yColpo] = 'C';
                 sleep(2);
                 continue;
@@ -248,14 +249,12 @@ bool fineGioco(bool ricominciare)
     if ((risposta == 's' || risposta == 'S'))
     {
         clearScreen();
-        ricominciare = true;
-        return ricominciare;
+        return true;
     }
     else
     {
-        ricominciare = false;
         std::cout << "Fine del gioco. Arrivederci!" << std::endl;
-        return ricominciare;
+        return false;
     }
 }
 
