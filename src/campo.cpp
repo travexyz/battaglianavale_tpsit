@@ -157,7 +157,6 @@ bool esiste(Campo *campo, char nave)
     {
         for (size_t j = 0; j < campo->dimensione; j++)
         {
-            // std::cerr << i << j << campo->campo[i][j] << " " << nave << std::endl;
             if (campo->campo[i][j] == nave)
             {
                 std::cout << "Nave " << nave << " non affondata." << std::endl;
@@ -210,8 +209,8 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
             // Se ho affondato la nave
             if (!esiste(campoNavi, naveDaCercare))
             {
-                // clearScreen();
-                scriviConEffetto("Hai affondato una nave!", 20);
+                clearScreen();
+                scriviConEffetto("Nave completamente affondata!", 20);
                 campoNavi->campo[xColpo][yColpo] = 'X';
                 campoTattico->campo[xColpo][yColpo] = 'X';
                 campoNavi->numeroNavi--;
@@ -220,8 +219,8 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
             }
             else
             {
-                // clearScreen();
-                scriviConEffetto("Hai colpito una nave!", 20);
+                clearScreen();
+                scriviConEffetto("Hai colpito parzialmente una nave!", 20);
                 campoTattico->campo[xColpo][yColpo] = 'C';
                 sleep(2);
                 continue;
@@ -231,7 +230,7 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         {
             clearScreen();
             campoNavi->colpiDisponibili--;
-            scriviConEffetto("Hai colpito solo dell'acqua!", 20);
+            scriviConEffetto("Acqua, ridireziona i colpi!", 20);
             campoTattico->campo[xColpo][yColpo] = 'A';
             sleep(2);
             continue;
@@ -239,10 +238,36 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
     } while (campoNavi->numeroNavi > 0 && campoNavi->colpiDisponibili > 0);
 }
 
-bool fineGioco(bool ricominciare)
+void fineGioco(Campo *&campoNavi)
 {
+    clearScreen();
 
-    std::cout << "Il gioco è finito. Vuoi ricominciare? (s/n): ";
+    std::cout << "Questa era la posizione delle navi: " << std::endl;
+    stampaCampo(campoNavi);
+
+    if (campoNavi->numeroNavi <= 0 || campoNavi->colpiDisponibili <= 0)
+    {
+        std::cout << " _______                            _______                   " << std::endl;
+        std::cout << "|     __|.---.-.--------.-----.    |       |.--.--.-----.----." << std::endl;
+        std::cout << "|    |  ||  _  |        |  -__|    |   -   ||  |  |  -__|   _|" << std::endl;
+        std::cout << "|_______||___._|__|__|__|_____|    |_______| \\___/|_____|__|  " << std::endl;
+        std::cout << "Hai perso! Prova a rigiocare magari qualche volta vinci anche!" << std::endl
+                  << std::endl;
+    }
+    else
+    {
+        std::cout << " ___ ___                   ________              " << std::endl;
+        std::cout << "|   |   |.-----.--.--.    |  |  |  |.-----.-----." << std::endl;
+        std::cout << " \\     / |  _  |  |  |    |  |  |  ||  _  |     |" << std::endl;
+        std::cout << "  |___|  |_____|_____|    |________||_____|__|__|" << std::endl;
+        std::cout << "Strano, hai vinto! Hai affondato tutte le navi!" << std::endl
+                  << std::endl;
+    }
+}
+
+bool wantToContinue()
+{
+    std::cout << "Il gioco è finito. Vuoi rigiocare? (s/n): ";
     char risposta;
     std::cin >> risposta;
 
@@ -256,26 +281,4 @@ bool fineGioco(bool ricominciare)
         std::cout << "Fine del gioco. Arrivederci!" << std::endl;
         return false;
     }
-}
-
-bool finedituttelenavi(Campo *campo)
-{
-    for (size_t i = 0; i < campo->dimensione; i++)
-    {
-        for (size_t j = 0; j < campo->dimensione; j++)
-        {
-            if (std::isdigit(campo->campo[i][j]))
-            {
-                std::cout << "Hai perso!" << std::endl;
-                return false;
-                EXIT_SUCCESS;
-            }
-        }
-    }
-    if (campo->numeroNavi == 0)
-    {
-        std::cout << "Hai vinto!" << std::endl;
-    }
-    return true;
-    EXIT_SUCCESS;
 }

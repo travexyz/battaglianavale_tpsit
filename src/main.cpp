@@ -6,8 +6,8 @@
 
 int main()
 {
-    bool ricominciare = true;
-    while (ricominciare)
+    bool continua = true;
+    do
     {
 
         std::string banner1 = " ______         __   __                __ __             _______                     __         ";
@@ -16,11 +16,11 @@ int main()
         std::string banner4 = "|______/|___._||____|____|___._|___  ||__|__||___._|    |__|____||___._|\\___/|___._||__||_____|";
         std::string banner5 = "                               |_____|                                                          ";
 
-        // scriviConEffetto(banner1, 5);
-        // scriviConEffetto(banner2, 5);
-        // scriviConEffetto(banner3, 5);
-        // scriviConEffetto(banner4, 10);
-        // scriviConEffetto(banner5, 5);
+        scriviConEffetto(banner1, 5);
+        scriviConEffetto(banner2, 5);
+        scriviConEffetto(banner3, 5);
+        scriviConEffetto(banner4, 10);
+        scriviConEffetto(banner5, 5);
 
         std::cout << "Benvenuto, dovrai affondare tutte le navi che veranno generate in modo casuale." << std::endl;
 
@@ -52,10 +52,9 @@ int main()
 
         // Inizio il gioco
         gestisciColpi(campoNavi, campoTattico);
-        if (!fineGioco(ricominciare))
-        {
-            return EXIT_SUCCESS;
-        };
-    }
+        fineGioco(campoNavi);
+        continua = wantToContinue();
+
+    } while (continua);
     return EXIT_SUCCESS;
 }

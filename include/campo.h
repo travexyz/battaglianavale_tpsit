@@ -24,6 +24,9 @@ void stampaCampo(Campo *campo);
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
 
 /// @brief
-/// @param ricominciare
-/// @return
-bool fineGioco(bool ricominciare);
+/// @param campoNavi
+void fineGioco(Campo *campoNavi);
+
+/// @brief 
+/// @return 
+bool wantToContinue();
