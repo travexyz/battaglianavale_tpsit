@@ -25,7 +25,7 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
 
 /// @brief
 /// @param campoNavi
-void fineGioco(Campo *campoNavi);
+void fineGioco(Campo *&campoNavi);
 
 /// @brief 
 /// @return 

@@ -150,8 +150,8 @@ void stampaCampo(Campo *campo)
     }
 }
 
-// Funzione per verificare se la nave è stata affondata
-bool esiste(Campo *campo, char nave)
+// Funzione per verificare se la nave è stata affondata, usata in gestisciColpi
+bool esisteNave(Campo *campo, char nave)
 {
     for (size_t i = 0; i < campo->dimensione; i++)
     {
@@ -159,26 +159,25 @@ bool esiste(Campo *campo, char nave)
         {
             if (campo->campo[i][j] == nave)
             {
-                std::cout << "Nave " << nave << " non affondata." << std::endl;
                 return true; // La nave non è ancora completamente affondata
             }
         }
     }
-    std::cout << "Nave " << nave << " affondata." << std::endl;
     return false; // La nave è completamente affondata
 }
 
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
 {
     unsigned short int xColpo = 0, yColpo = 0;
+
     do
     {
         clearScreen();
-        stampaCampo(campoNavi);
+        // stampaCampo(campoNavi);
         stampaCampo(campoTattico);
         std::cout << "Colpi disponibili: " << campoNavi->colpiDisponibili << std::endl;
         std::cout << "Navi ancora intatte: " << campoNavi->numeroNavi << std::endl;
-        std::cout << "Inserisci le coordinate del tuo colpo: (x poi y)" << std::endl;
+        std::cout << "Inserisci le coordinate del tuo colpo: (x invia e poi y)" << std::endl;
         std::cin >> yColpo >> xColpo;
 
         clearScreen();
@@ -203,17 +202,19 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         if (std::isdigit(campoNavi->campo[xColpo][yColpo]))
         {
             campoNavi->colpiDisponibili--;
+            
             char naveDaCercare = campoNavi->campo[xColpo][yColpo];
             campoNavi->campo[xColpo][yColpo] = 'C';
 
             // Se ho affondato la nave
-            if (!esiste(campoNavi, naveDaCercare))
+            if (!esisteNave(campoNavi, naveDaCercare))
             {
                 clearScreen();
                 scriviConEffetto("Nave completamente affondata!", 20);
                 campoNavi->campo[xColpo][yColpo] = 'X';
                 campoTattico->campo[xColpo][yColpo] = 'X';
                 campoNavi->numeroNavi--;
+
                 sleep(2);
                 continue;
             }
@@ -222,6 +223,7 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
                 clearScreen();
                 scriviConEffetto("Hai colpito parzialmente una nave!", 20);
                 campoTattico->campo[xColpo][yColpo] = 'C';
+
                 sleep(2);
                 continue;
             }
@@ -229,9 +231,9 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
         if (campoNavi->campo[xColpo][yColpo] == '~')
         {
             clearScreen();
-            campoNavi->colpiDisponibili--;
-            scriviConEffetto("Acqua, ridireziona i colpi!", 20);
+            scriviConEffetto("Acqua, ridireziona i tuoi colpi!", 20);
             campoTattico->campo[xColpo][yColpo] = 'A';
+
             sleep(2);
             continue;
         }
