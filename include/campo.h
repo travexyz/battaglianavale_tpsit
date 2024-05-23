@@ -23,7 +23,6 @@ void stampaCampo(Campo *campo);
 /// @param campoTattico
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
 
-<<<<<<< Updated upstream
 /// @brief
 /// @param campoNavi
 void fineGioco(Campo *&campoNavi);
@@ -31,9 +30,3 @@ void fineGioco(Campo *&campoNavi);
 /// @brief 
 /// @return 
 bool wantToContinue();
-=======
-/// @brief per continuare a giocare o finire il gioco
-/// @param ricominciare
-/// @return se si continua o meno
-bool fineGioco(bool ricominciare);
->>>>>>> Stashed changes
