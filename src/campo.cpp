@@ -173,7 +173,6 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
     do
     {
         clearScreen();
-        // stampaCampo(campoNavi);
         stampaCampo(campoTattico);
         std::cout << "Colpi disponibili: " << campoNavi->colpiDisponibili << std::endl;
         std::cout << "Navi ancora intatte: " << campoNavi->numeroNavi << std::endl;

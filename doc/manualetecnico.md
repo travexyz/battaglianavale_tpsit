@@ -197,4 +197,58 @@ void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico)
                 scriviConEffetto("Hai colpito parzialmente una nave!", 20);
                 campoTattico->campo[xColpo][yColpo] = 'C';
                 sleep(2);
+            }
+        }    
+    }
+}
+```
+questa funzione gestisce tutto ciò che ha a che fare con i colpi, gli spari, gli annunci, stampare il campo.
+### fineGioco(Campo *&campoNavi)
+```cpp
+{
+    clearScreen();
 
+    std::cout << "Questa era la posizione delle navi: " << std::endl;
+    stampaCampo(campoNavi);
+
+    if (campoNavi->numeroNavi <= 0 || campoNavi->colpiDisponibili <= 0)
+    {
+        std::cout << " _______                            _______                   " << std::endl;
+        std::cout << "|     __|.---.-.--------.-----.    |       |.--.--.-----.----." << std::endl;
+        std::cout << "|    |  ||  _  |        |  -__|    |   -   ||  |  |  -__|   _|" << std::endl;
+        std::cout << "|_______||___._|__|__|__|_____|    |_______| \\___/|_____|__|  " << std::endl;
+        std::cout << "Hai perso! Prova a rigiocare magari qualche volta vinci anche!" << std::endl
+                  << std::endl;
+    }
+    else
+    {
+        std::cout << " ___ ___                   ________              " << std::endl;
+        std::cout << "|   |   |.-----.--.--.    |  |  |  |.-----.-----." << std::endl;
+        std::cout << " \\     / |  _  |  |  |    |  |  |  ||  _  |     |" << std::endl;
+        std::cout << "  |___|  |_____|_____|    |________||_____|__|__|" << std::endl;
+        std::cout << "Strano, hai vinto! Hai affondato tutte le navi!" << std::endl
+                  << std::endl;
+    }
+}
+```
+questa funzione scrive in output quando il gioco è finito se il giocatore ha vinto o perso: (you won)(game over).
+### wantToContinue()
+```cpp
+{
+    std::cout << "Il gioco è finito. Vuoi rigiocare? (s/n): ";
+    char risposta;
+    std::cin >> risposta;
+
+    if ((risposta == 's' || risposta == 'S'))
+    {
+        clearScreen();
+        return true;
+    }
+    else
+    {
+        std::cout << "Fine del gioco. Arrivederci!" << std::endl;
+        return false;
+    }
+}
+```
+questa funzione verifica se il giocatore desidera continuare a giocare o meno. 
