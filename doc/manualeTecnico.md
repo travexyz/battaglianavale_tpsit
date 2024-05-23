@@ -1,16 +1,15 @@
 # Manuale Tecnico per il Codice di Gioco delle Navi
 Questo documento fornisce una guida tecnica dettagliata per comprendere e lavorare con il codice del gioco delle navi, scritto in C++. Esploreremo le funzioni principali, la struttura del codice e alcuni suggerimenti per l'estensione e la modifica.
 ## Indice
-   - [Struttura del Progetto](#struttura-del-progetto)
-   - [Descrizione delle Funzioni](#descrizione-delle-funzioni)
-   - [inizializzaCampo](#inizializzacampo)
-   - [inserisciNavi](#inseriscinavi)
-   - [stampaCampo](#stampacampo)
-   - [esisteNave](#esistenave)
-   - [gestisciColpi](#gestiscicolpi)
-   - [fineGioco](#finegioco)
-   - [wantToContinue](#wanttocontinue)
-   - [Suggerimenti per l'Estensione](#suggerimenti-per-lestensione)
+- [Manuale Tecnico per il Codice di Gioco delle Navi](#manuale-tecnico-per-il-codice-di-gioco-delle-navi)
+  - [Indice](#indice)
+  - [Struttura del Progetto](#struttura-del-progetto)
+  - [Descrizione delle Funzioni](#descrizione-delle-funzioni)
+    - [inizializzaCampo](#inizializzacampo)
+    - [inserisciNavi](#inseriscinavi)
+    - [stampaCampo](#stampacampo)
+    - [esisteNave](#esistenave)
+    - [gestisciColpi](#gestiscicolpi)
 ## Struttura del Progetto
 Il progetto è suddiviso in vari file, con le seguenti inclusioni principali:
 - `#include <iostream>`

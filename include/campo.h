@@ -23,6 +23,7 @@ void stampaCampo(Campo *campo);
 /// @param campoTattico
 void gestisciColpi(Campo *&campoNavi, Campo *&campoTattico);
 
+<<<<<<< HEAD
 /// @brief 
 /// @return 
 bool wantToContinue();
@@ -31,3 +32,12 @@ bool wantToContinue();
 /// @param ricominciare
 /// @return se si continua o meno
 bool fineGioco(bool ricominciare);
+=======
+/// @brief
+/// @param campoNavi
+void fineGioco(Campo *&campoNavi);
+
+/// @brief 
+/// @return 
+bool wantToContinue();
+>>>>>>> origin
